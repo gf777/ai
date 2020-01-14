@@ -3,20 +3,20 @@ library(tidyverse)
 library(rgl)
 
 setwd("~/Documents/Github/ai/ecoli")
-landscapes<-read.csv("matrix3D.txt", sep="\t")
+landscape<-read.csv("matrix3D.txt", sep="\t")
 
 r3dDefaults$windowRect <- c(0,0, 4000, 4000)
 
-landscapes<-landscapes %>% distinct(genomeSize, err_rate, .keep_all = TRUE)
+landscape<-landscape %>% distinct(genomeSize, err_rate, .keep_all = TRUE)
 
-m_QV<-pivot_wider(landscapes, id_cols = genomeSize, names_from = err_rate, values_from = QV)
+m_QV<-pivot_wider(landscape, id_cols = genomeSize, names_from = err_rate, values_from = QV)
 m_QV<- m_QV[order(m_QV$genomeSize),]
 
-m_ctgn<-pivot_wider(landscapes, id_cols = genomeSize, names_from = err_rate, values_from = ctgn)
+m_ctgn<-pivot_wider(landscape, id_cols = genomeSize, names_from = err_rate, values_from = ctgn)
 m_ctgn<- m_ctgn[order(m_ctgn$genomeSize),]
 z_ctgn<-data.matrix(unname(m_ctgn[,-1]))
 
-m_gsize<-pivot_wider(landscapes, id_cols = genomeSize, names_from = err_rate, values_from = gsize)
+m_gsize<-pivot_wider(landscape, id_cols = genomeSize, names_from = err_rate, values_from = gsize)
 m_gsize<-m_gsize[order(m_gsize$genomeSize),]
 
 z_gsize<-data.matrix(unname(m_gsize[,-1]))
@@ -83,7 +83,7 @@ mtext3d("QV", edge= 'z-+', line = 4, at = NULL, pos = NA)
 }
 
 draw_landscape()
-peak<-filter(landscapes, QV == max(na.omit(z_QV)))
+peak<-filter(landscape, QV == max(na.omit(z_QV)))
 arrow3d(cbind(peak[,1],peak[,2],peak[,3]+0.2),cbind(peak[,1],peak[,2],peak[,3]+0.03), col = "red", size=20)
 movie3d(spin3d(axis = c(0, 0, 1),rpm = 0.5), startTime = 0, duration = 40,dir = "figures/", convert = TRUE)
 
@@ -92,6 +92,7 @@ draw_lines("test8.txt", "blue")
 draw_lines("test15.txt", "green")
 draw_lines("test16.txt", "aquamarine")
 draw_lines("test19.txt", "darkslateblue")
+draw_lines("test25.txt", "darkolivegreen1")
 
 draw_landscape()
 rgl.quads( x = c(3915000,3915000,3915000,3915000), y = c(min(y), max(y), max(y), min(y)),

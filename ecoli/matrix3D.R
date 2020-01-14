@@ -88,8 +88,8 @@ arrow3d(cbind(peak[,1],peak[,2],peak[,3]+0.2),cbind(peak[,1],peak[,2],peak[,3]+0
 movie3d(spin3d(axis = c(0, 0, 1),rpm = 0.5), startTime = 0, duration = 40,dir = "figures/", convert = TRUE)
 
 draw_lines("test4.txt", "purple")
-draw_lines("test8.txt", "blue")
 draw_lines("test15.txt", "green")
+draw_lines("test21.txt", "blue")
 draw_lines("test16.txt", "aquamarine")
 draw_lines("test19.txt", "darkslateblue")
 draw_lines("test25.txt", "darkolivegreen1")
